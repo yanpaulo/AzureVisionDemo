@@ -3,11 +3,40 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AzureVisionDemo.UWPApp"
+    xmlns:vision="using:AzureVisionDemo"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Orientation="Vertical" Margin="12">
+            <TextBlock Style="{ThemeResource HeaderTextBlockStyle}" Foreground="DarkSlateGray" Margin="0,12">Azure Vision Demo</TextBlock>
+            <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}">Recursos Visuais</TextBlock>
+            <StackPanel Orientation="Vertical" Margin="8,0">
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[0].IsSelected}" Content="{Binding VisualFeaturesList[0].Text}"></CheckBox>
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[1].IsSelected}" Content="{Binding VisualFeaturesList[1].Text}"></CheckBox>
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[2].IsSelected}" Content="{Binding VisualFeaturesList[2].Text}"></CheckBox>
+                </StackPanel>
 
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[3].IsSelected}" Content="{Binding VisualFeaturesList[3].Text}"></CheckBox>
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[4].IsSelected}" Content="{Binding VisualFeaturesList[4].Text}"></CheckBox>
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[5].IsSelected}" Content="{Binding VisualFeaturesList[5].Text}"></CheckBox>
+                </StackPanel>
+            </StackPanel>
+
+            <TextBlock Style="{ThemeResource TitleTextBlockStyle}"  Foreground="{ThemeResource SystemControlForegroundAccentBrush}">Detalhes</TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="8,0">
+                <CheckBox IsChecked="{Binding VisualDetailsList[0].IsSelected}" Content="{Binding VisualDetailsList[0].Text}"></CheckBox>
+                <CheckBox IsChecked="{Binding VisualDetailsList[1].IsSelected}" Content="{Binding VisualDetailsList[1].Text}"></CheckBox>
+            </StackPanel>
+        </StackPanel>
     </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Camera" Label="Câmera"></AppBarButton>
+            <AppBarButton Icon="Download" Label="Selecionar"></AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

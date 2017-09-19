@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AzureVisionDemo.UWPApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,8 +23,11 @@ namespace AzureVisionDemo.UWPApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private MainPageViewModel _viewModel;
+
         public MainPage()
         {
+            DataContext = _viewModel = new MainPageViewModel();
             this.InitializeComponent();
         }
     }
