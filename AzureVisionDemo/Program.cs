@@ -17,6 +17,7 @@ namespace AzureVisionDemo
             string saveFileName;
             ProgramArguments options;
 
+            #region Read args or display help
             if (HelpRequested(args))
             {
                 PrintHelp();
@@ -33,8 +34,9 @@ namespace AzureVisionDemo
                 Console.WriteLine();
                 PrintHelp();
                 return;
-            }
-            
+            } 
+            #endregion
+
             if (options.IsUrl)
             {
                 analisys = ws.AnalyzeImage(options.Path, options.VisualFeatures, options.VisualDetails);
