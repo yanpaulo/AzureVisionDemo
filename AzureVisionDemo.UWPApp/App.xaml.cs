@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -49,6 +50,7 @@ namespace AzureVisionDemo.UWPApp
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.Navigated += RootFrame_Navigated;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -70,8 +72,46 @@ namespace AzureVisionDemo.UWPApp
                 }
                 // Verifique se a janela atual está ativa
                 Window.Current.Activate();
+
+            }
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+        }
+
+        
+
+        private void App_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+                return;
+
+            // If we can go back and the event has not already been handled, do so.
+            if (rootFrame.CanGoBack && e.Handled == false)
+            {
+                e.Handled = true;
+                rootFrame.GoBack();
+
+                if (!rootFrame.CanGoBack)
+                {
+                    SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+                }
             }
         }
+
+        private void RootFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            Frame rootFrame = (Frame)sender;
+            if (rootFrame.CanGoBack)
+            {
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            }
+            else
+            {
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+            }
+        }
+
 
         /// <summary>
         /// Chamado quando ocorre uma falha na Navegação para uma determinada página
