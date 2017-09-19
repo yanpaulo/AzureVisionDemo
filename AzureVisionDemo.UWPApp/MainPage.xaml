@@ -35,7 +35,7 @@
 
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Icon="Camera" Label="Câmera"></AppBarButton>
+            <AppBarButton x:Name="CameraButton" Icon="Camera" Label="Câmera" Click="CameraButton_Click"></AppBarButton>
             <AppBarButton Icon="Download" Label="Selecionar"></AppBarButton>
         </CommandBar>
     </Page.BottomAppBar>

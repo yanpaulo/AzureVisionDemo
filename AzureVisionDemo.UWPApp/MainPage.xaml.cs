@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Capture;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -29,6 +31,19 @@ namespace AzureVisionDemo.UWPApp
         {
             DataContext = _viewModel = new MainPageViewModel();
             this.InitializeComponent();
+        }
+
+        private async void CameraButton_Click(object sender, RoutedEventArgs e)
+        {
+            CameraCaptureUI captureUI = new CameraCaptureUI();
+
+            var photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+            if (photo != null)
+            {
+                var properties = await photo.GetBasicPropertiesAsync();
+
+                Frame.Navigate(typeof(AnalisysView), photo);
+            }
         }
     }
 }
