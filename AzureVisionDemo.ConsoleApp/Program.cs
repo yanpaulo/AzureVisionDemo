@@ -10,7 +10,7 @@ namespace AzureVisionDemo.ConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static async void Main(string[] args)
         {
             var ws = new WebService(ConfigurationManager.AppSettings["location"], ConfigurationManager.AppSettings["key"]);
             string analisys;
@@ -39,13 +39,13 @@ namespace AzureVisionDemo.ConsoleApp
 
             if (options.IsUrl)
             {
-                analisys = ws.AnalyzeImage(options.Path, options.VisualFeatures, options.VisualDetails);
+                analisys = await ws.AnalyzeImageAsync(options.Path, options.VisualFeatures, options.VisualDetails);
                 saveFileName = options.Path.Remove(0, options.Path.LastIndexOf('/') + 1);
             }
             else
             {
                 var stream = new FileStream(options.Path, FileMode.Open);
-                analisys = ws.AnalyzeImage(stream, options.VisualFeatures, options.VisualDetails);
+                analisys = await ws.AnalyzeImageAsync(stream, options.VisualFeatures, options.VisualDetails);
                 saveFileName = Path.GetFileNameWithoutExtension(options.Path);
             }
             

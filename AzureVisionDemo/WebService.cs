@@ -41,27 +41,27 @@ namespace AzureVisionDemo
             _client.DefaultRequestHeaders.Add("ocp-apim-subscription-key", apiKey);
         }
 
-        public string AnalyzeImage(string url, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
+        public async Task<string> AnalyzeImageAsync(string url, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
         {
             var content = new StringContent($"{{\"url\":\"{url}\"}}", Encoding.UTF8, "application/json"); 
-            return AnalyzeImage(content, features, details);
+            return await AnalyzeImageAsync(content, features, details);
         }
 
-        public string AnalyzeImage(Stream stream, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
+        public async Task<string> AnalyzeImageAsync(Stream stream, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
         {
             var content = new StreamContent(stream);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-            return AnalyzeImage(content, features, details);
+            return await AnalyzeImageAsync(content, features, details);
         }
 
-        private string AnalyzeImage(HttpContent content, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
+        private async Task<string> AnalyzeImageAsync(HttpContent content, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
         {
-            var result = _client.PostAsync($"analyze?visualFeatures={UrlEncode(features)}&details={UrlEncode(details)}", content).Result;
+            var result = await _client.PostAsync($"analyze?visualFeatures={UrlEncode(features)}&details={UrlEncode(details)}", content);
             if (!result.IsSuccessStatusCode)
             {
-                throw new InvalidOperationException(result.Content.ReadAsStringAsync().Result);
+                throw new InvalidOperationException(await result.Content.ReadAsStringAsync());
             }
-            return result.Content.ReadAsStringAsync().Result;
+            return await result.Content.ReadAsStringAsync();
         }
 
         private string UrlEncode(object target)
