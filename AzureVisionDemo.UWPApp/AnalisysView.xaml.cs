@@ -28,7 +28,7 @@ namespace AzureVisionDemo.UWPApp
             AzureLocation = "eastus2",
             AzureKey = "df1b001a919943b9b0195fd29cadf2e8";
 
-        private StorageFile _file;
+        private AnalisysParameters _parameters;
 
         public string QueryResult { get; set; }
         public string ImageUrl { get; set; }
@@ -42,24 +42,26 @@ namespace AzureVisionDemo.UWPApp
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var ws = new WebService(AzureLocation, AzureKey);
-            var stream = await _file.OpenStreamForReadAsync();
-
-            var result = await ws.AnalyzeImageAsync(stream, VisualFeatures.Categories | VisualFeatures.Description, VisualDetails.Celebrities);
-            var settings = new JsonSerializerSettings
+            using (var stream = await _parameters.StorageFile.OpenStreamForReadAsync())
             {
-                NullValueHandling = NullValueHandling.Ignore,
-                Formatting = Formatting.Indented
-            };
-            QueryResult = JsonConvert.SerializeObject(result, settings);
-            Bindings.Update();
+                var result = await ws.AnalyzeImageAsync(stream, _parameters.VisualFeatures, _parameters.VisualDetails);
+                var settings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Formatting = Formatting.Indented
+                };
+                QueryResult = JsonConvert.SerializeObject(result, settings);
+                Bindings.Update();
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var file = e.Parameter as StorageFile;
-            ImageUrl = file.Path;
-            _file = file;
+            _parameters = (AnalisysParameters)e.Parameter;
+
+            ImageUrl = _parameters.StorageFile.Path;
             Bindings.Update();
+
             base.OnNavigatedTo(e);
         }
 

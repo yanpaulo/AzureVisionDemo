@@ -92,6 +92,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnalisysParameters.cs" />
     <Compile Include="AnalisysView.xaml.cs">
       <DependentUpon>AnalisysView.xaml</DependentUpon>
     </Compile>

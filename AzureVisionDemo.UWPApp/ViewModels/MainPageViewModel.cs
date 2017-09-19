@@ -10,9 +10,10 @@ namespace AzureVisionDemo.UWPApp.ViewModels
     {
         public SelectListItem[] VisualFeaturesList { get; set; } = new[]
         {
-            new SelectListItem{ Value = VisualFeatures.Categories,  Text = "Categorias" },
-            new SelectListItem{ Value = VisualFeatures.Tags,        Text = "Tags" },
-            new SelectListItem{ Value = VisualFeatures.Description, Text = "Descrição" },
+            new SelectListItem{ Value = VisualFeatures.Description, Text = "Descrição",     IsSelected = true },
+            new SelectListItem{ Value = VisualFeatures.Categories,  Text = "Categorias",    IsSelected = true },
+            new SelectListItem{ Value = VisualFeatures.Tags,        Text = "Tags",          IsSelected = true },
+            
             new SelectListItem{ Value = VisualFeatures.Faces,       Text = "Rostos" },
             new SelectListItem{ Value = VisualFeatures.ImageType,   Text = "Tipo" },
             new SelectListItem{ Value = VisualFeatures.Adult,       Text = "Adulto" },
@@ -20,7 +21,7 @@ namespace AzureVisionDemo.UWPApp.ViewModels
 
         public SelectListItem[] VisualDetailsList { get; set; } = new[]
         {
-            new SelectListItem{ Value = VisualDetails.Celebrities,  Text = "Celebridades" },
+            new SelectListItem{ Value = VisualDetails.Celebrities,  Text = "Celebridades", IsSelected = true },
             new SelectListItem{ Value = VisualDetails.Landmarks,    Text = "Locais" },
         };
     }
