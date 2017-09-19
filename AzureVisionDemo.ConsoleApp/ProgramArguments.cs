@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace AzureVisionDemo
+namespace AzureVisionDemo.ConsoleApp
 {
     public class ProgramArguments
     {

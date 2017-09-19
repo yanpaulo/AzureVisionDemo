@@ -46,10 +46,15 @@
     <Compile Include="Program.cs" />
     <Compile Include="ProgramArguments.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AzureVisionDemo\AzureVisionDemo.csproj">
+      <Project>{b13ca024-eb89-4037-8934-e134926b1b38}</Project>
+      <Name>AzureVisionDemo</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

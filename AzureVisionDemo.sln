@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureVisionDemo.ConsoleApp", "AzureVisionDemo.ConsoleApp\AzureVisionDemo.ConsoleApp.csproj", "{2CBB4F57-1211-4A89-9F15-2271AD4A1248}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureVisionDemo", "AzureVisionDemo\AzureVisionDemo.csproj", "{B13CA024-EB89-4037-8934-E134926B1B38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2CBB4F57-1211-4A89-9F15-2271AD4A1248}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CBB4F57-1211-4A89-9F15-2271AD4A1248}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CBB4F57-1211-4A89-9F15-2271AD4A1248}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B13CA024-EB89-4037-8934-E134926B1B38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B13CA024-EB89-4037-8934-E134926B1B38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B13CA024-EB89-4037-8934-E134926B1B38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B13CA024-EB89-4037-8934-E134926B1B38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
