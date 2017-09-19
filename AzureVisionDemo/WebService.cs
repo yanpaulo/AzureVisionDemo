@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -41,27 +42,29 @@ namespace AzureVisionDemo
             _client.DefaultRequestHeaders.Add("ocp-apim-subscription-key", apiKey);
         }
 
-        public async Task<string> AnalyzeImageAsync(string url, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
+        public async Task<ImageAnalisys> AnalyzeImageAsync(string url, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
         {
             var content = new StringContent($"{{\"url\":\"{url}\"}}", Encoding.UTF8, "application/json"); 
             return await AnalyzeImageAsync(content, features, details);
         }
 
-        public async Task<string> AnalyzeImageAsync(Stream stream, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
+        public async Task<ImageAnalisys> AnalyzeImageAsync(Stream stream, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
         {
             var content = new StreamContent(stream);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
             return await AnalyzeImageAsync(content, features, details);
         }
 
-        private async Task<string> AnalyzeImageAsync(HttpContent content, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
+        private async Task<ImageAnalisys> AnalyzeImageAsync(HttpContent content, VisualFeatures features = VisualFeatures.None, VisualDetails details = VisualDetails.None)
         {
             var result = await _client.PostAsync($"analyze?visualFeatures={UrlEncode(features)}&details={UrlEncode(details)}", content);
             if (!result.IsSuccessStatusCode)
             {
                 throw new InvalidOperationException(await result.Content.ReadAsStringAsync());
             }
-            return await result.Content.ReadAsStringAsync();
+            var stringResult = await result.Content.ReadAsStringAsync();
+            var analisys = JsonConvert.DeserializeObject<ImageAnalisys>(stringResult);
+            return analisys;
         }
 
         private string UrlEncode(object target)

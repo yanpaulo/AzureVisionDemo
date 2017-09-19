@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -10,10 +11,10 @@ namespace AzureVisionDemo.ConsoleApp
 {
     class Program
     {
-        static async void Main(string[] args)
+        static void Main(string[] args)
         {
             var ws = new WebService(ConfigurationManager.AppSettings["location"], ConfigurationManager.AppSettings["key"]);
-            string analisys;
+            ImageAnalisys analisys;
             string saveFileName;
             ProgramArguments options;
 
@@ -39,22 +40,22 @@ namespace AzureVisionDemo.ConsoleApp
 
             if (options.IsUrl)
             {
-                analisys = await ws.AnalyzeImageAsync(options.Path, options.VisualFeatures, options.VisualDetails);
+                analisys = ws.AnalyzeImageAsync(options.Path, options.VisualFeatures, options.VisualDetails).Result;
                 saveFileName = options.Path.Remove(0, options.Path.LastIndexOf('/') + 1);
             }
             else
             {
                 var stream = new FileStream(options.Path, FileMode.Open);
-                analisys = await ws.AnalyzeImageAsync(stream, options.VisualFeatures, options.VisualDetails);
+                analisys = ws.AnalyzeImageAsync(stream, options.VisualFeatures, options.VisualDetails).Result;
                 saveFileName = Path.GetFileNameWithoutExtension(options.Path);
             }
-            
-            Console.WriteLine(analisys);
-            File.WriteAllText(saveFileName + ".analisys.json", analisys);
+            var stringAnalisys = JsonConvert.SerializeObject(analisys, Formatting.Indented);
+            Console.WriteLine(stringAnalisys);
+            File.WriteAllText(saveFileName + ".analisys.json", stringAnalisys);
         }
 
         private static bool HelpRequested(string[] args) =>
-            args.Length == 0 || new[] { "?", "-?", "help", "-help", "--help" }.Any(a => a == args[0]);
+            args.Length == 0 || new[] { "?", "/?", "-?", "help", "-help", "--help" }.Any(a => a == args[0]);
 
         private static void PrintHelp()
         {
