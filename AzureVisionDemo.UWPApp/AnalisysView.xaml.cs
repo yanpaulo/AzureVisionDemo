@@ -45,7 +45,12 @@ namespace AzureVisionDemo.UWPApp
             var stream = await _file.OpenStreamForReadAsync();
 
             var result = await ws.AnalyzeImageAsync(stream, VisualFeatures.Categories | VisualFeatures.Description, VisualDetails.Celebrities);
-            QueryResult = JsonConvert.SerializeObject(result, Formatting.Indented);
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Formatting.Indented
+            };
+            QueryResult = JsonConvert.SerializeObject(result, settings);
             Bindings.Update();
         }
 
