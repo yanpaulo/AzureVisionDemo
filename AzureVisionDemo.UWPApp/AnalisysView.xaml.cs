@@ -59,6 +59,7 @@ namespace AzureVisionDemo.UWPApp
                     Formatting = Formatting.Indented
                 };
                 QueryResult = JsonConvert.SerializeObject(result, settings);
+                LoadingProgressRing.Visibility = Visibility.Collapsed;
                 Bindings.Update();
             }
         }

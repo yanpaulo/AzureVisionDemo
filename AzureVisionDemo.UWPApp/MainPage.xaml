@@ -7,6 +7,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.Transitions>
+        <TransitionCollection>
+            <EntranceThemeTransition></EntranceThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical" Margin="12">
             <TextBlock Style="{ThemeResource HeaderTextBlockStyle}" Foreground="DarkSlateGray" Margin="0,12">Azure Vision Demo</TextBlock>

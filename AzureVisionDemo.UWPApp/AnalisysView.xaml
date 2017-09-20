@@ -9,8 +9,13 @@
     SizeChanged="Page_SizeChanged"
     Loaded="Page_Loaded"
     >
-
+    <Page.Transitions>
+        <TransitionCollection>
+            <EntranceThemeTransition></EntranceThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
     <Grid x:Name="RootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -29,8 +34,9 @@
                 <Image Grid.Row="0" 
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch"
-                   Source="{x:Bind ImageBitmap, FallbackValue='Assets/Wide310x150Logo.scale-200.png'}"/>
-                
+                       Source="{x:Bind ImageBitmap, FallbackValue='Assets/Wide310x150Logo.scale-200.png'}">
+                </Image>
+
             </Grid>
             
             <ScrollViewer x:Name="ContentScrollViewer" 
@@ -38,9 +44,17 @@
                           RelativePanel.AlignLeftWithPanel="True" 
                           RelativePanel.AlignRightWithPanel="True"
                           RelativePanel.AlignBottomWithPanel="True">
-                
-                <TextBlock Text="{x:Bind QueryResult}"></TextBlock>
-                
+                <StackPanel Orientation="Vertical">
+                    <ProgressBar x:Name="LoadingProgressRing" Visibility="Visible" IsIndeterminate="True" Height="20"></ProgressBar>
+                    <TextBlock Text="{x:Bind QueryResult}">
+                        <TextBlock.Transitions>
+                            <TransitionCollection>
+                                <ContentThemeTransition></ContentThemeTransition>
+                            </TransitionCollection>
+                        </TextBlock.Transitions>
+                    </TextBlock>
+                </StackPanel>
+
             </ScrollViewer>
         </RelativePanel>
 
