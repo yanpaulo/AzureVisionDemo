@@ -26,11 +26,10 @@
                 RelativePanel.AlignTopWithPanel="True" 
                 RelativePanel.AlignLeftWithPanel="True"  
                 RelativePanel.AlignRightWithPanel="True">
-                
                 <Image Grid.Row="0" 
                        HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch"
-                   Source="{x:Bind ImageUrl, FallbackValue='Assets/Wide310x150Logo.scale-200.png'}"/>
+                   Source="{x:Bind ImageBitmap, FallbackValue='Assets/Wide310x150Logo.scale-200.png'}"/>
                 
             </Grid>
             

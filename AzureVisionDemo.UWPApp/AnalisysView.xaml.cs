@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -31,7 +32,7 @@ namespace AzureVisionDemo.UWPApp
         private AnalisysParameters _parameters;
 
         public string QueryResult { get; set; }
-        public string ImageUrl { get; set; }
+        public BitmapImage ImageBitmap { get; set; }
 
         public AnalisysView()
         {
@@ -42,6 +43,13 @@ namespace AzureVisionDemo.UWPApp
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var ws = new WebService(AzureLocation, AzureKey);
+            using (var stream = await _parameters.StorageFile.OpenAsync(FileAccessMode.Read))
+            {
+                ImageBitmap = new BitmapImage();
+                await ImageBitmap.SetSourceAsync(stream);
+                Bindings.Update();
+
+            }
             using (var stream = await _parameters.StorageFile.OpenStreamForReadAsync())
             {
                 var result = await ws.AnalyzeImageAsync(stream, _parameters.VisualFeatures, _parameters.VisualDetails);
@@ -58,8 +66,6 @@ namespace AzureVisionDemo.UWPApp
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             _parameters = (AnalisysParameters)e.Parameter;
-
-            ImageUrl = _parameters.StorageFile.Path;
             Bindings.Update();
 
             base.OnNavigatedTo(e);
