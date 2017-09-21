@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -50,17 +51,27 @@ namespace AzureVisionDemo.UWPApp
                 Bindings.Update();
 
             }
-            using (var stream = await _parameters.StorageFile.OpenStreamForReadAsync())
+            try
             {
-                var result = await ws.AnalyzeImageAsync(stream, _parameters.VisualFeatures, _parameters.VisualDetails);
-                var settings = new JsonSerializerSettings
+                using (var stream = await _parameters.StorageFile.OpenStreamForReadAsync())
                 {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    Formatting = Formatting.Indented
-                };
-                QueryResult = JsonConvert.SerializeObject(result, settings);
-                LoadingProgressRing.Visibility = Visibility.Collapsed;
-                Bindings.Update();
+
+                    var result = await ws.AnalyzeImageAsync(stream, _parameters.VisualFeatures, _parameters.VisualDetails);
+
+                    var settings = new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore,
+                        Formatting = Formatting.Indented
+                    };
+                    QueryResult = JsonConvert.SerializeObject(result, settings);
+                    LoadingProgressRing.Visibility = Visibility.Collapsed;
+                    Bindings.Update();
+                }
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message).ShowAsync();
+                Frame.GoBack();
             }
         }
 

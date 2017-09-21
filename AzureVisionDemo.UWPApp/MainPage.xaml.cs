@@ -9,6 +9,7 @@ using Windows.Foundation.Collections;
 using Windows.Media.Capture;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -37,7 +38,7 @@ namespace AzureVisionDemo.UWPApp
         private async void CameraButton_Click(object sender, RoutedEventArgs e)
         {
             CameraCaptureUI captureUI = new CameraCaptureUI();
-
+            captureUI.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.VeryLarge5M;
             var photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
             if (photo != null)
             {
@@ -61,8 +62,15 @@ namespace AzureVisionDemo.UWPApp
             }
         }
 
-        private void NavigateToAnalisys(StorageFile file)
+        private async void NavigateToAnalisys(StorageFile file)
         {
+            var props = await file.GetBasicPropertiesAsync();
+            if (props.Size >= 4000000)
+            {
+                await new MessageDialog($"Tamanho máximo permitido: 4MB, fornecido: {(double)props.Size / 1024 / 1024}").ShowAsync();
+                return;
+            }
+
             var parameters = new AnalisysParameters { StorageFile = file };
             foreach (var item in _viewModel.VisualFeaturesList.Where(f => f.IsSelected))
             {
