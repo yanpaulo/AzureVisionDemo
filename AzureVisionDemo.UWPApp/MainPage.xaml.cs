@@ -38,7 +38,7 @@ namespace AzureVisionDemo.UWPApp
         private async void CameraButton_Click(object sender, RoutedEventArgs e)
         {
             CameraCaptureUI captureUI = new CameraCaptureUI();
-            captureUI.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.VeryLarge5M;
+            captureUI.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.Large3M;
             var photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
             if (photo != null)
             {
