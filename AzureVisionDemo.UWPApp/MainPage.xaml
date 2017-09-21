@@ -19,22 +19,22 @@
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}">Recursos Visuais</TextBlock>
             <StackPanel Orientation="Vertical" Margin="8,0">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox IsChecked="{Binding VisualFeaturesList[0].IsSelected}" Content="{Binding VisualFeaturesList[0].Text}"></CheckBox>
-                    <CheckBox IsChecked="{Binding VisualFeaturesList[1].IsSelected}" Content="{Binding VisualFeaturesList[1].Text}"></CheckBox>
-                    <CheckBox IsChecked="{Binding VisualFeaturesList[2].IsSelected}" Content="{Binding VisualFeaturesList[2].Text}"></CheckBox>
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[0].IsSelected,Mode=TwoWay}" Content="{Binding VisualFeaturesList[0].Text}"></CheckBox>
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[1].IsSelected,Mode=TwoWay}" Content="{Binding VisualFeaturesList[1].Text}"></CheckBox>
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[2].IsSelected,Mode=TwoWay}" Content="{Binding VisualFeaturesList[2].Text}"></CheckBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox IsChecked="{Binding VisualFeaturesList[3].IsSelected}" Content="{Binding VisualFeaturesList[3].Text}"></CheckBox>
-                    <CheckBox IsChecked="{Binding VisualFeaturesList[4].IsSelected}" Content="{Binding VisualFeaturesList[4].Text}"></CheckBox>
-                    <CheckBox IsChecked="{Binding VisualFeaturesList[5].IsSelected}" Content="{Binding VisualFeaturesList[5].Text}"></CheckBox>
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[3].IsSelected,Mode=TwoWay}" Content="{Binding VisualFeaturesList[3].Text}"></CheckBox>
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[4].IsSelected,Mode=TwoWay}" Content="{Binding VisualFeaturesList[4].Text}"></CheckBox>
+                    <CheckBox IsChecked="{Binding VisualFeaturesList[5].IsSelected,Mode=TwoWay}" Content="{Binding VisualFeaturesList[5].Text}"></CheckBox>
                 </StackPanel>
             </StackPanel>
 
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}"  Foreground="{ThemeResource SystemControlForegroundAccentBrush}">Detalhes</TextBlock>
             <StackPanel Orientation="Horizontal" Margin="8,0">
-                <CheckBox IsChecked="{Binding VisualDetailsList[0].IsSelected}" Content="{Binding VisualDetailsList[0].Text}"></CheckBox>
-                <CheckBox IsChecked="{Binding VisualDetailsList[1].IsSelected}" Content="{Binding VisualDetailsList[1].Text}"></CheckBox>
+                <CheckBox IsChecked="{Binding VisualDetailsList[0].IsSelected,Mode=TwoWay}" Content="{Binding VisualDetailsList[0].Text}"></CheckBox>
+                <CheckBox IsChecked="{Binding VisualDetailsList[1].IsSelected,Mode=TwoWay}" Content="{Binding VisualDetailsList[1].Text}"></CheckBox>
             </StackPanel>
         </StackPanel>
     </Grid>
